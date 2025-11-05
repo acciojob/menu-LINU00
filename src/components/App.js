@@ -1,47 +1,85 @@
 import React, { useState } from "react";
-import Menu from "../components/Menu";
-import './../styles/App.css';
-
-function App() {
-const menuData = [
-    { id: 1, name: "Pancakes", category: "Breakfast", price: "$5", img: "https://via.placeholder.com/100" },
-    { id: 2, name: "Burger", category: "Lunch", price: "$8", img: "https://via.placeholder.com/100" },
-    { id: 3, name: "Milkshake", category: "Shakes", price: "$4", img: "https://via.placeholder.com/100" },
-    { id: 4, name: "Omelette", category: "Breakfast", price: "$6", img: "https://via.placeholder.com/100" },
-    { id: 5, name: "Pasta", category: "Lunch", price: "$9", img: "https://via.placeholder.com/100" },
-    { id: 6, name: "Chocolate Shake", category: "Shakes", price: "$5", img: "https://via.placeholder.com/100" }, 
+import Menu from "./Menu";
+import "../styles/App.css"; 
+ 
+const allDishes = [
+  {
+    id: 1,
+    name: "Pancakes",
+    category: "breakfast",
+    price: "$5.99",
+    img: "https://via.placeholder.com/100",
+  },
+  {
+    id: 2,
+    name: "Omelette",
+    category: "breakfast",
+    price: "$4.50",
+    img: "https://via.placeholder.com/100",
+  },
+  {
+    id: 3,
+    name: "Burger",
+    category: "lunch",
+    price: "$8.99",
+    img: "https://via.placeholder.com/100",
+  },
+  {
+    id: 4,
+    name: "Grilled Sandwich",
+    category: "lunch",
+    price: "$6.50",
+    img: "https://via.placeholder.com/100",
+  },
+  {
+    id: 5,
+    name: "Strawberry Shake",
+    category: "shakes",
+    price: "$3.99",
+    img: "https://via.placeholder.com/100",
+  },
+  {
+    id: 6,
+    name: "Chocolate Shake",
+    category: "shakes",
+    price: "$4.25",
+    img: "https://via.placeholder.com/100",
+  },
 ];
-  const [menuItems, setMenuItems] = useState(menuData);
-  const [selectedCategory, setSelectedCategory] = useState("All");
 
-  const handleFilter = (category) => {
-    setSelectedCategory(category);
-    if (category === "All") {
-      setMenuItems(menuData);
+const App = () => {
+  const [dishes, setDishes] = useState(allDishes);
+  const [category, setCategory] = useState("all");
+
+  const handleFilter = (cat) => {
+    setCategory(cat);
+    if (cat === "all") {
+      setDishes(allDishes);
     } else {
-      setMenuItems(menuData.filter((item) => item.category === category));
+      setDishes(allDishes.filter((dish) => dish.category === cat));
     }
   };
 
   return (
     <div id="main">
-      <h1>Our Menu</h1>
-
-      <div className="button-container">
-        <button id="filter-btn-1" onClick={() => handleFilter("Breakfast")}>
+      <h1 className="title">Menu</h1>
+      <div className="buttons">
+        <button id="filter-btn-1" onClick={() => handleFilter("breakfast")}>
           Breakfast
         </button>
-        <button id="filter-btn-2" onClick={() => handleFilter("Lunch")}>
+        <button id="filter-btn-2" onClick={() => handleFilter("lunch")}>
           Lunch
         </button>
-        <button id="filter-btn-3" onClick={() => handleFilter("Shakes")}>
+        <button id="filter-btn-3" onClick={() => handleFilter("shakes")}>
           Shakes
         </button>
+        <button id="filter-btn-all" onClick={() => handleFilter("all")}>
+          All
+        </button>
       </div>
-
-      <Menu items={menuItems} />
+      <Menu dishes={dishes} />
     </div>
   );
-}
+};
 
 export default App;
